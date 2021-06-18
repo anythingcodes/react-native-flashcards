@@ -1,28 +1,15 @@
-import * as React from 'react';
-import { View, Button, Text, Animated } from 'react-native';
+import React from 'react';
+import { Animated } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider, connect } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
 import { createStackNavigator } from '@react-navigation/stack';
+import reducers from './reducers';
+import Home from './components/Home'
+import Deck from './components/Deck'
+import AddCardForm from './components/AddCardForm';
 
-function Home({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home screen</Text>
-      <Button
-        title="Go to Profile"
-        onPress={() => navigation.navigate('Profile')}
-      />
-    </View>
-  );
-}
-
-function Profile({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile screen</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
-  );
-}
+const store = createStore(combineReducers({ decks: reducers }));
 
 const forFade = ({ current, next }) => {
   const opacity = Animated.add(
@@ -43,21 +30,33 @@ const forFade = ({ current, next }) => {
 
 const Stack = createStackNavigator();
 
-function MyStack() {
+function FlashcardStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Decks"
         component={Home}
         options={{
+          title: 'Decks',
           headerTintColor: 'white',
           headerStyle: { backgroundColor: 'tomato' },
         }}
       />
       <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={{ headerStyleInterpolator: forFade }}
+        name="Deck"
+        component={Deck}
+        options={({ route }) => ({
+          title: route.params.title,
+          headerStyleInterpolator: forFade
+        })}
+      />
+      <Stack.Screen
+        name="Add Card"
+        component={AddCardForm}
+        options={() => ({
+          title: 'Add Card',
+          headerStyleInterpolator: forFade
+        })}
       />
     </Stack.Navigator>
   );
@@ -65,8 +64,10 @@ function MyStack() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <MyStack />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <FlashcardStack />
+      </NavigationContainer>
+    </Provider>
   );
 }
