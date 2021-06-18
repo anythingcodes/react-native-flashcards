@@ -1,38 +1,72 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Router, Route, Link } from './react-router';
+import * as React from 'react';
+import { View, Button, Text, Animated } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Home = () => <Text>Home</Text>;
-
-const About = () => <Text>About</Text>;
-
-const App = () => (
-  <Router>
-    <View style={styles.container}>
-      <View style={styles.nav}>
-        <Link to="/">
-          <Text>Home</Text>
-        </Link>
-        <Link to="/about">
-          <Text>About</Text>
-        </Link>
-      </View>
-
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
+function Home({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home screen</Text>
+      <Button
+        title="Go to Profile"
+        onPress={() => navigation.navigate('Profile')}
+      />
     </View>
-  </Router>
-);
+  );
+}
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 25,
-    padding: 10
-  },
-  nav:{
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-});
+function Profile({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Profile screen</Text>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </View>
+  );
+}
 
-export default App;
+const forFade = ({ current, next }) => {
+  const opacity = Animated.add(
+    current.progress,
+    next ? next.progress : 0
+  ).interpolate({
+    inputRange: [0, 1, 2],
+    outputRange: [0, 1, 0],
+  });
+
+  return {
+    leftButtonStyle: { opacity },
+    rightButtonStyle: { opacity },
+    titleStyle: { opacity },
+    backgroundStyle: { opacity },
+  };
+};
+
+const Stack = createStackNavigator();
+
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerTintColor: 'white',
+          headerStyle: { backgroundColor: 'tomato' },
+        }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerStyleInterpolator: forFade }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+}
