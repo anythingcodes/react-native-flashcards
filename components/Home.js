@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { FlatList, Text, StyleSheet, Pressable, View } from 'react-native';
+import {  FlatList, Text, StyleSheet, Pressable } from 'react-native';
 import { receiveDecks} from '../actions';
 import { fetchFlashcards } from '../utils/api';
 import { connect } from 'react-redux';
@@ -15,6 +15,7 @@ const pageStyles = StyleSheet.create({
   },
 });
 
+
 function Home({ decks, dispatch, navigation }) {
 
   useEffect(() => {
@@ -22,7 +23,18 @@ function Home({ decks, dispatch, navigation }) {
   }, []);
 
   const renderItem = ({ item: { title, questions }}) => (
-    <Pressable style={styles.card} onPress={() => navigation.navigate('Deck', { title })}>
+    <Pressable
+      style={({ pressed }) => [
+
+        styles.card,
+        {
+          backgroundColor: pressed
+            ? '#fbb4a75e'
+            : styles.card.backgroundColor
+        }
+      ]}
+      onPress={() => navigation.navigate('Deck', { title })}
+    >
       <Text style={styles.heading}>{title}</Text>
       <Text style={pageStyles.subheading}>{questions.length} cards</Text>
     </Pressable>
