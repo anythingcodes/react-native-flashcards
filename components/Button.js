@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {  Text, StyleSheet, Pressable } from 'react-native';
+import { Text, StyleSheet, Pressable } from 'react-native';
 
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
   button: {
     marginVertical: 10,
     alignItems: 'center',
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 
 export default function Button({ buttonStyle, onPress, textStyle, title }) {
   return (
-    <Pressable style={[ styles.button, buttonStyle ]} onPress={onPress}>
-      <Text style={[styles.text, textStyle ]}>{title}</Text>
+    <Pressable style={[ componentStyles.button, buttonStyle ]} onPress={onPress}>
+      <Text style={[componentStyles.text, textStyle ]}>{title}</Text>
     </Pressable>
   );
 }

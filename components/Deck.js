@@ -1,32 +1,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Button from './Button';
-import {addDeck} from '../actions'
+import styles from '../utils/styles';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  card: {
-    margin: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 40,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#ff63475e',
-  },
-  heading: {
-    fontSize: 35,
-    lineHeight: 35,
-    marginBottom: 10,
-    fontWeight: 'bold',
-    letterSpacing: 0.25,
-  },
+const pageStyles = StyleSheet.create({
   subheading: {
     fontSize: 18,
     letterSpacing: 0.25,
@@ -35,24 +14,16 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const Deck = ({ dispatch, navigation, deck: { title, questions } }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.heading}>{title}</Text>
-      <Text style={styles.subheading}>{questions.length} cards</Text>
+      <Text style={pageStyles.subheading}>{questions.length} cards</Text>
       <Button onPress={() => {
         // TODO:
-        const key = new Date().toLocaleTimeString();
-        console.log(`adding ${key}`);
-        dispatch(addDeck({
-          [key]: {
-            title: key,
-            questions: []
-          }
-        }));
+        console.log('add card');
       }} title="Add Card" buttonStyle={{ backgroundColor: 'white' }} textStyle={{color: 'black'}} />
-      <Button onPress={() => console.log('meow')} title="Start Quiz" />
+      <Button onPress={() => console.log('start quiz')} title="Start Quiz" />
     </View>
   );
 }
