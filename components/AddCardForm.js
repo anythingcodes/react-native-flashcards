@@ -3,30 +3,38 @@ import { Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from './Button';
 import styles from '../utils/styles';
+import { addCard } from '../actions';
 
-const AddCardForm = ({ dispatch, navigation }) => {
-  const [front, setFront] = useState('');
-  const [back, setBack] = useState('');
+const AddCardForm = ({ dispatch, title, navigation }) => {
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
 
-  // TODO: go home button
   return (
     <View style={styles.card}>
-      <Text style={styles.heading}>Add Card</Text>
+      <Text style={styles.heading}>Add Card to '{title}' deck</Text>
       <TextInput
+        autoFocus={true}
         style={{ height: 40 }}
-        placeholder="Front"
-        onChangeText={val => setFront(val)}
-        defaultValue={front}
+        placeholder="Enter question"
+        onChangeText={val => setQuestion(val)}
+        defaultValue={question}
       />
       <TextInput
         style={{ height: 40 }}
-        placeholder="Back"
-        onChangeText={val => setBack(val)}
-        defaultValue={back}
+        placeholder="Enter answer"
+        onChangeText={val => setAnswer(val)}
+        defaultValue={answer}
       />
       <Button onPress={() => {
         // TODO:
         console.log('add card');
+        const card = { question, answer };
+        dispatch(addCard({
+          card,
+          key: title
+        }));
+        navigation.navigate('Deck', { title });
+
       }} title="Add Card" buttonStyle={{ backgroundColor: 'white' }} textStyle={{color: 'black'}} />
       <Button onPress={() => {
         // TODO:
@@ -36,8 +44,9 @@ const AddCardForm = ({ dispatch, navigation }) => {
   );
 }
 
-function mapStateToProps ({ cards }, props) {
+function mapStateToProps ({ cards }, { route: { params: { title } } }) {
   return {
+    title,
     cards
   }
 }

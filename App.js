@@ -10,6 +10,7 @@ import reducers from './reducers';
 import Home from './components/Home';
 import Deck from './components/Deck';
 import NewDeck from './components/NewDeck';
+import AddCardForm from './components/AddCardForm';
 
 const store = createStore(combineReducers({ decks: reducers }));
 
@@ -45,6 +46,7 @@ function FlashcardsStackScreen() {
         }}
       />
       <HomeStack.Screen name="Deck" component={Deck} />
+      <HomeStack.Screen name="Add Card" component={AddCardForm} />
     </HomeStack.Navigator>
   );
 }

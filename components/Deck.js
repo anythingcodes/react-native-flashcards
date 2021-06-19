@@ -19,10 +19,7 @@ const Deck = ({ dispatch, navigation, deck: { title, questions } }) => {
     <View style={styles.card}>
       <Text style={styles.heading}>{title}</Text>
       <Text style={pageStyles.subheading}>{questions.length} cards</Text>
-      <Button onPress={() => {
-        // TODO:
-        console.log('add card');
-      }} title="Add Card" buttonStyle={{ backgroundColor: 'white' }} textStyle={{color: 'black'}} />
+      <Button onPress={() => navigation.navigate('Add Card', { title })} title="Add Card" buttonStyle={{ backgroundColor: 'white' }} textStyle={{color: 'black'}} />
       <Button onPress={() => console.log('start quiz')} title="Start Quiz" />
     </View>
   );
