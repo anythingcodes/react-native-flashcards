@@ -32,7 +32,7 @@ const NewDeck = ({ dispatch, navigation }) => {
           }));
           navigation.navigate('Deck', { title });
         }
-      }} title="Submit" />
+      }} title="Create Deck" />
     </View>
 
   );

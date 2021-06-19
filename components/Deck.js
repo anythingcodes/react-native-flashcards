@@ -14,13 +14,13 @@ const pageStyles = StyleSheet.create({
   },
 });
 
-const Deck = ({ dispatch, navigation, deck: { title, questions } }) => {
+const Deck = ({ dispatch, navigation, deck: { title, questions }}) => {
   return (
     <View style={styles.card}>
       <Text style={styles.heading}>{title}</Text>
       <Text style={pageStyles.subheading}>{questions.length} cards</Text>
       <Button onPress={() => navigation.navigate('Add Card', { title })} title="Add Card" buttonStyle={{ backgroundColor: 'white' }} textStyle={{color: 'black'}} />
-      <Button onPress={() => console.log('start quiz')} title="Start Quiz" />
+      <Button onPress={() => navigation.navigate('Quiz', { questions, title })} title="Start Quiz" />
     </View>
   );
 }

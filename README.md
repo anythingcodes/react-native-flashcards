@@ -9,3 +9,9 @@ Install all dependencies.
 
 `yarn start`
 Launch app. Then press `i` to launch on your iOS emulator or `a` to launch on your Android emulator, as directed.
+
+## QA
+
+Tested in Expo Go via:
+- Real Pixel 4, Android 11
+- Emulated iPhone 8, iOS 14.5
