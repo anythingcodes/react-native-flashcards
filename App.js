@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Animated } from 'react-native';
+import React, { useEffect} from 'react';
+import { Animated} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
@@ -12,6 +12,7 @@ import Deck from './components/Deck';
 import NewDeck from './components/NewDeck';
 import AddCardForm from './components/AddCardForm';
 import Quiz from './components/Quiz';
+import { setLocalNotification  } from './utils/helpers';
 
 const store = createStore(combineReducers({ decks: reducers }));
 
@@ -67,6 +68,8 @@ function NewDeckStackScreen() {
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  useEffect(() => setLocalNotification(), [])
+
   return (
     <Provider store={store}>
       <NavigationContainer>

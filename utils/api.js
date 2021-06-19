@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { FLASHCARD_STORAGE_KEY, formatFlashcards } from './_results';
+import { FLASHCARD_STORAGE_KEY, formatFlashcards } from './helpers';
 
 export const fetchFlashcards = () => {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY).then(formatFlashcards)

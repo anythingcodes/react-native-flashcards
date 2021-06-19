@@ -15,3 +15,8 @@ Launch app. Then press `i` to launch on your iOS emulator or `a` to launch on yo
 Tested in Expo Go via:
 - Real Pixel 4, Android 11
 - Emulated iPhone 8, iOS 14.5
+
+To test notifications, be sure to [configure your device](https://github.com/expo/expo/tree/master/packages/expo-notifications#configure-for-ios).
+
+Node env details:
+- Node v14.17.1 (npm v6.14.13)
